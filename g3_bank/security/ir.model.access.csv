@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_g3_bank_admin,bank_admin,base.model_res_users,Admins,1,1,1,1
+access_g3_accounts_customer,bank_account,model_g3_bank_account,Customers,1,1,1,1
+access_g3_bank_movement_customer,bank_movement,model_g3_bank_movement,Customers,1,1,1,1

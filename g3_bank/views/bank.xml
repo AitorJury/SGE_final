@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="g3_account_action">
+            <field name="name">My Accounts</field>
+            <field name="res_model">g3_bank.account</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('customer_ids', 'in', [uid])]</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="g3_movement_action">
+            <field name="name">My Movements</field>
+            <field name="res_model">g3_bank.movement</field>
+            <field name="view_mode">form,tree</field>
+        </record>
+        <record model="ir.actions.act_window" id="g3_customer_action">
+            <field name="name">G3 Customers</field>
+            <field name="res_model">res.users</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+        <!-- HE CAMBIADO PARA QUE APAREZCA EN TREE -->
+        <record model="ir.actions.act_window" id="g3_movement_tree">
+            <field name="name">My Movements</field>
+            <field name="res_model">g3_bank.movement</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="main_bank_menu" name="Bank"/>
+
+        <menuitem id="menu_bank_accounts" name="My Accounts" parent="main_bank_menu" action="g3_account_action"/>
+        <!-- ES PARA QUE APAREZCA EL TREE  -->
+        <menuitem id="menu_bank_movements" name="My Movements" parent="main_bank_menu" action="g3_movement_tree"/>
+        <menuitem id="menu_bank_customers" name="Customers" parent="main_bank_menu" action="g3_customer_action" groups="g3_bank.Admins" />
+
+    </data>
+</odoo>

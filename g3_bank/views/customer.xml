@@ -1,0 +1,86 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="customer_tree_view">
+            <field name="name">g3_bank.customer.tree</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="id"/>
+                </field>
+                <field name="lang" position="replace">
+                    <field name="city"/>
+                </field>
+                <field name="login_date" position="replace">
+                    <field name="phone"/>
+                </field>
+                <field name="phone" position="after">
+                    <field name="zip"/>
+                    <field name="street"/>
+                    <field name="state_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="customer_form_view">
+            <field name="name">g3_bank.customer.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_simple_form"/>
+            <field name="arch" type="xml">
+
+                <group name="phone_numbers" position="replace">
+                    <group>
+                        <group>
+                            <field name="city"/>
+                            <field name="zip"/>
+                            <field name="phone" widget="phone"/>
+
+                        </group>
+                        <group>
+                            <field name="street"/>
+                            <field name="country_id"/>
+                            <field name="state_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Cuentas" name="detalles_cuentas">
+                            <field name="account_ids"
+                            domain="[('customer_ids', '=', False), ('balance', '>', 0)]"
+                            readonly="True"
+                            />
+                        </page>
+                    </notebook>
+                </group>
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="customer_search_view">
+            <field name="name">g3_bank.customer.search</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_search"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="city" string="Ciudad"/>
+                    <field name="zip" string="Codigo Postal"/>
+                </field>
+                <filter name="filter_no_share" position="after">
+                    <!-- Separador visual en la lista -->
+                    <separator/>
+                <!-- Añadir filtro para solo aparezcan los clientes con ciudades asociadas-->
+                    <filter string="Clientes con Ciudad" name="filter_with_city" domain="[('city', '!=', False)]"/>
+                </filter>
+<!--                Añade agrupamiento por ciudad y por codigo postal, al poner contexto lo añade directamente-->
+<!--                a la pestaña de group by hereadad-->
+                <filter name="Inactive" position="after">
+                    <group expand="0" string="Group by">
+                        <filter string="City" name="group_by_city" context="{'group_by': 'city'}"/>
+                        <filter string="Zip" name="group_by_zip" context="{'group_by': 'zip'}"/>
+                    </group>
+                </filter>
+            </field>
+
+        </record>
+
+    </data>
+</odoo>

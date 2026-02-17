@@ -1,0 +1,69 @@
+<odoo>
+    <data>
+        <!-- CAMBIADO DISTINTO -->
+        <record model="ir.ui.view" id="movement_search_view">
+            <field name="name">g3_bank.movement.search</field>
+            <field name="model">g3_bank.movement</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Descripción"/>
+                    <field name="account_id"/>
+
+                    <filter name="filter_deposit" string="Depósitos" domain="[('name','=','deposit')]"/>
+                    <filter name="filter_payment" string="Pagos" domain="[('name','=','payment')]"/>
+                    <separator/>
+                    <searchpanel>
+                        <field name="account_id" 
+                               string="Seleccione Cuenta" 
+                               enable_counters="1   " 
+                               select="one"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="movement_tree_view">
+            <field name="name">g3_bank.movement.tree</field>
+            <field name="model">g3_bank.movement</field>
+            <field name="arch" type="xml">
+                <tree string ="My movements" create="0">
+                <!-- <tree string ="My movements" delete="0" create="0"> -->
+                    <field name="account_id"/>
+                    <field name="timestamp"/>
+                    <field name="name"/>
+                    <field name="amount" sum="Total Movements"/>
+                    <field name="balance"/>
+                    <!-- CAMBIADO DISTINTO
+                        HE CAMBIADO VALORES PARA QUE NO APAREZCAN EN EL TREE                    -->
+              
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="movement_form_view">
+            <field name="name">g3_bank.movement.form</field>
+            <field name="model">g3_bank.movement</field>
+            <field name="arch" type="xml">
+                <form string="Bank Movement" delete="0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" attrs="{'readonly': [('id', '!=', False)]}"/>
+                                <field name="amount" attrs="{'readonly': [('id', '!=', False)]}"/>
+                                <field name="account_id" readonly="1" />
+                            </group>
+                            <group>
+                                <!-- CAMBIADO DISTINTO
+                        HE CAMBIADO VALORES PARA QUE NO APAREZCAN EN EL FORM                    -->
+                                <field name="timestamp" readonly="1"/>
+                                <field name="balance" readonly="1"/>
+                                <field name="currency_id" readonly="1"/>
+                                <field name="id" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>
